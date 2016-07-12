@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Sheet1">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">OEE %</Data></Cell>       
+        <Cell><Data ss:Type="String">Machine No</Data></Cell>       
+        <Cell><Data ss:Type="String">Shift</Data></Cell>
+        <Cell><Data ss:Type="String">Issue Date</Data></Cell>       
+        <Cell><Data ss:Type="String">Product Name</Data></Cell>
+        <Cell><Data ss:Type="String">Colour</Data></Cell>       
+        <Cell><Data ss:Type="String">Product Weight</Data></Cell>       
+        <Cell><Data ss:Type="String">Mould No</Data></Cell>          
+        <Cell><Data ss:Type="String">Raw Material</Data></Cell>
+        <Cell><Data ss:Type="String">No of Cavity</Data></Cell>
+        <Cell><Data ss:Type="String">Expected Cycle Time</Data></Cell>       
+        <Cell><Data ss:Type="String">Actual Cycle Time</Data></Cell>
+        <Cell><Data ss:Type="String">Expected Production</Data></Cell>       
+        <Cell><Data ss:Type="String">Actual Production</Data></Cell>       
+        <Cell><Data ss:Type="String">Rejected Nos</Data></Cell>
+        <Cell><Data ss:Type="String">Rejected Weight</Data></Cell>
+        <Cell><Data ss:Type="String">Total Weight</Data></Cell>
+        <Cell><Data ss:Type="String">No of mins Idle Time </Data></Cell>
+        <Cell><Data ss:Type="String">Supervisor Name</Data></Cell>
+   </Row>
+
+   
+   <Row></Row>
+   
+       <% $oee.each do |i| %>
+
+       <% unless i[2] == @chk %>
+
+       <Row>
+        <Cell><Data ss:Type="String">Date:<%= i[2] %></Data></Cell>
+       </Row>
+       
+       <%end%>       
+
+       <% oe = ((i[12].to_f/i[11].to_f)*100).round(2) %>
+       <% exp = (i[11].to_f).round(2) %>
+       <% act = (i[12].to_f).round(2) %>
+       <% @o = (i[16].to_f).round(2) %>
+
+        <Row>
+        <Cell><Data ss:Type="String"><%= oe %></Data></Cell>        
+        <Cell><Data ss:Type="String"><%= i[0] %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= i[1] %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= i[2] %></Data></Cell>
+
+        <% @chk = i[2] %>
+
+        <Cell><Data ss:Type="String"><%= i[3] %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= i[4] %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= i[5] %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= i[6] %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= i[7] %></Data></Cell>    
+        <Cell><Data ss:Type="String"><%= i[8] %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= i[9] %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= i[10] %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= exp %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= act %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= i[13] %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= (i[14].to_f).round(2) %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= (i[15].to_f).round(2) %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= @o %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= i[17] %></Data></Cell>
+        </Row>
+       <%end%>
+      
+       <Row></Row>
+
+       <Row>
+       <Cell><Data ss:Type="String"></Data></Cell>
+       <Cell><Data ss:Type="String">Total</Data></Cell>
+       <Cell></Cell><Cell></Cell><Cell></Cell><Cell></Cell><Cell></Cell>
+       <Cell></Cell><Cell></Cell><Cell></Cell><Cell></Cell><Cell></Cell>
+       <Cell><Data ss:Type="String"><%= $oe.to_f.round(2)%></Data></Cell>
+       <Cell><Data ss:Type="String"><%= $oe1.to_f.round(2)%></Data></Cell>
+       <Cell></Cell><Cell></Cell><Cell></Cell>
+       <Cell><Data ss:Type="String"><%= $oe2.to_f.round(2)%></Data></Cell>
+      </Row>
+
+    </Table>
+  </Worksheet>
+</Workbook>
+

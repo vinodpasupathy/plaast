@@ -1,0 +1,53 @@
+
+<div class="bod">
+  <div class="col-md-10 col-sm-8 body-wrap">
+<div class="set">
+<div class="body-container">
+<div class="body-header">
+Order Party
+<div class="fact"><%= form_tag(:action => "party_order_new", :method => 'get', id:"search-order") do %>
+   <p>
+   <span ><%= text_field_tag :search, params[:search],:placeholder=>"Party",:class=>"fa fa-search"%></span>
+   <div class="fact1">
+    <%= submit_tag "Search",:class=>"btn btn-info btn-sm"%>
+   <%= link_to "clear" ,users_party_order_new_path,:class=>"btn btn-info btn-sm"%>
+</div>   </p>
+   <% end %></div>
+</div>
+<div class="body-content">
+<div class="table-container">
+<div class="header">
+    List of Order Party
+</div>
+<table class="table">
+    <thead>
+<tr>
+<th>Order - Party</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<%= form_for([@party_order], validate: true, :url=>{:controller=>"users", :action => "party_order_create"}) do |i|%>
+<tr class="odd"><td><%=i.text_field:party_order_list,:required => true%></td>
+<td><%= i.submit "Add",:class=>"btn btn-info"%>
+ <%end%></td></tr>
+
+<% @party_order1.each do |i| %>
+<tr>
+<td><div class="fot"><%= i.party_order_list%></div></td>
+<td><%= link_to image_tag("/assets/trash1.png", height: '20', width: '20',:class=>"img-circle",:title => 'Delete', :rel => 'tooltip',:onclick=>"if (confirm('Are you sure!!!')) commentDelete(1); return false"),{:action => 'party_order_delete', :id => i.id }%></td>
+
+</tr>
+<%end%>
+</tbody>
+</table>
+</div>
+</div>
+<div class="digg_pagination" align="right">
+    <%= will_paginate @party_order1, :container => false %>
+  </div>
+</div>
+</div>
+</div>
+
+

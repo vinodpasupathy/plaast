@@ -1,0 +1,34 @@
+<div class = "bod">
+  <div class="col-md-10 col-sm-8 body-wrap">
+              <div class="body-container">
+                  <div class="body-header">
+                    Pending Orders
+                    </div>
+                    <div class="body-content">
+                       <div class="table-container">
+      <table class="table">
+ <thead>
+ <tr>
+        <th>Order No</th>
+       	<th>Order Quantity in Nos</th>
+		<th>Total No of Items produced</th>
+		<th>Pending Items</th>
+	</tr>
+ </thead>
+ 
+ 		<% @pend.each do |i| %>
+		<tr class="odd">
+			<td><%= i[0] %></td>
+		    <td><%= i[1] %></td>
+		    <td><%= i[2] %></td>
+		    <td><%= i[3] %></td>
+		</tr>
+		
+		<% end %>
+
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>

@@ -1,0 +1,56 @@
+<div class = "bod">
+  <div class="col-md-10 col-sm-8 body-wrap">
+              <div class="body-container">
+                  <div class="body-header">
+                      List of Mould Report
+<div class="add"><%= link_to users_report_mould_history_path, class: "btn btn-default", :title => 'Back', :rel =>'tooltip' do%>
+<i class="fa fa-arrow-left"></i><%end%></div>                    
+
+ <%if admin? and not @mould.blank?%>
+<div class="down"><%= link_to users_mould_history_xls_path(format: "xls"),:class=>"btn btn-info btn-sm" do%>
+<i class="fa fa-arrow-circle-down">Download</i><%end%></div><br>
+<%end%></div>
+                    <div class="body-content">
+                       <div class="table-container">
+      <table class="table">
+<thead>
+<tr>
+<th>Sl.No</th>
+<th>Mould No</th>
+<th>Issue Date</th>
+<th>No of Cavity</th>
+<th>Total No Item Produced</th>
+<th>No of shots</th>
+
+</tr>
+</thead>
+<% if @mould.blank? then %>
+<table><th>No records to display</th></table>
+
+<% else %>
+<%t=0%>
+<body>
+<% @mould.each do|i| %>
+<%t=t+1%>
+<tr class="odd">
+<td><%= t%></td>
+<td><%= i.mould %></td>
+<td><%= i.issue_date %></td>
+<% @n = i.no_of_cavity%>
+<td><%= @n%></td>
+<% @m =  i.total_no_of_items_produced %>
+<td><%= @m %></td>
+<% @a = (@m.to_f/@n.to_f).round(3) %>
+<td><%= @a%></td>
+</tr>
+<%end%>
+
+<%$mou=@mould%>
+</body>
+</table>
+<%end%>
+</div>
+</div>
+</div>
+</div>
+

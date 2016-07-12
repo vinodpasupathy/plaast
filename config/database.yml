@@ -1,0 +1,22 @@
+development:
+  adapter: mysql2
+  encoding: utf8
+  database: whiteplaast	
+  pool: 5
+  username: root
+  password: altius@123	
+test:
+  adapter: mysql2
+  encoding: utf8
+  database: whiteplaast
+  pool: 5
+  username: root
+  password: altius@123
+production:
+  adapter: mysql2
+  encoding: utf8
+  database: whiteplaast
+  pool: 5
+  username: root
+  password: altius@123
+

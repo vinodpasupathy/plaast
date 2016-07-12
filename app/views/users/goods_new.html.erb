@@ -1,0 +1,53 @@
+<div class="bod">
+  <div class="col-md-10 col-sm-8 body-wrap">
+<div class="set">
+<div class="body-container">
+<div class="body-header">
+Finished Goods
+ <div class="fact"><%= form_tag(:action => "goods_new", :method => 'get', id:"search-order") do %>
+   <p>
+   <span ><%= text_field_tag :search, params[:search],:placeholder=>"Goods Name",:class=>"fa fa-search"%></span>
+   <div class="fact1">
+    <%= submit_tag "Search",:class=>"btn btn-info btn-sm"%>
+<%= link_to "clear" ,users_goods_new_path,:class=>"btn btn-info btn-sm"%>
+</div>
+   </p>
+   <% end %></div>
+
+</div>
+<div class="body-content">
+<div class="table-container">
+<div class="header">
+    List of Finished Goods  
+</div>
+<table class="table">
+<thead>
+<tr>
+<th>Goods Name</th>
+<th>Action</th>
+</tr>
+</tbody>
+<tbody>
+<%= form_for([@finished_goods_name], validate: true, :url=>{:controller=>"users", :action => "goods_create"}) do |i|%>
+<tr><td><%=i.text_field:finished_goods_name_list,:required => true%></td>
+<td><%= i.submit "Add",:class=>"btn btn-info"%>
+ <%end%></td></tr>
+
+<% @finished_goods_name1.each do |i| %>
+<tr>
+<td><div class="fot"><%= i.finished_goods_name_list%></div></td>
+<td><%= link_to image_tag("/assets/trash1.png", height: '20', width: '20',:class=>"img-circle",:title => 'Delete', :rel => 'tooltip',:onclick=>"if (confirm('Are you sure!!!')) commentDelete(1); return false"),{:action => 'goods_delete', :id => i.id }%></td>
+
+</tr>
+</tbody>
+<%end%>
+</table>
+</div>
+</div>
+
+<div class="digg_pagination" align="right">
+    <%= will_paginate  @finished_goods_name1, :container => false %>
+  </div>
+</div>
+</div>
+</div>

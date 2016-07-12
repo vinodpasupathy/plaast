@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  mo_no: MyString
+  cycle_time: MyString
+
+two:
+  mo_no: MyString
+  cycle_time: MyString

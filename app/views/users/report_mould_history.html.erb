@@ -1,0 +1,28 @@
+<div class = "bod">
+  <div class="col-md-10 col-sm-8 body-wrap">
+     <div class="body-container">
+       <div class="body-header">
+           Mould Run History
+          </div>
+        <div class="body-content">
+          <div class="table-container">
+                                  <div class="header">
+<%= form_for :mould_history, :url=>{ :controller => "users", :action => "mould_history_report",:method => "get"} do |i| %>
+<center><table>
+  <tr style=border-color:#252525>
+<td style=border-color:#252525><%= i.label :intial_date,"From" ,:style=>"Color:white;"%></td>
+<td style=border-color:#252525><%= i.text_field :intial_date,:id => "txtFrom",:required => true,:class=>"txt" %></td>
+<td style=border-color:#252525><%= i.label :final_date,"To" ,:style=>"Color:white;"%></td>
+<td style=border-color:#252525><%= i.text_field :final_date,:id=>"txtTo",:required => true,:class=>"txt" %></td>
+<td style=border-color:#252525><div style="margin-top:-9px;"><%= i.submit "Submit",:class=>"btn btn-info"%></div></td>
+</tr>
+
+<tr style=border-color:#252525><td style=border-color:#252525 ><%= i.label :mould_no,"Mould No" ,:style=>"Color:white;" %></td>
+  <td style=border-color:#252525><%= i.collection_select(:mould_no, MouldNo.select(:mould_no_list).order('mould_no_list ASC').uniq, :mould_no_list, :mould_no_list,:prompt=> "--All--") %></td></tr>
+</table>
+</center>
+<% end %>
+</div>
+</div>
+</div>
+

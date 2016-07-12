@@ -1,0 +1,43 @@
+<div class = "bod">
+  <div class="col-md-10 col-sm-8 body-wrap">
+              <div class="body-container">
+                  <div class="body-header">
+                     Qty After Rg
+<div class="add"><%= link_to users_report_qty_after_rg_path, class: "btn btn-default", :title => 'Back', :rel =>'tooltip' do%>
+<i class="fa fa-arrow-left"></i><%end%></div>
+
+                    <% if admin? and not @qt.blank?%>
+<div class="down"><%= link_to users_qty_after_rg_xls_report_path(format: "xls"),:class=>"btn btn-info btn-sm" do%>
+<i class="fa fa-arrow-circle-down">Download</i><%end%><br>
+<%end%></div>
+</div>
+                    <div class="body-content">
+                       <div class="table-container">
+      <table class="table">
+ <thead>
+ <tr>
+        <th>Issue Date</th>
+        <th>Qty After Rg</th>
+        </tr>
+ </thead>
+<% @a=[]%>
+ <% if @qt.blank? then %>
+<table><th>No records to display</th></table>
+
+<% else %>
+
+                <% $qt = @qt%>
+                <% @qt.each do |i| %>
+                <tr class="odd">
+                <td><%= i[0] %></td>
+                <td><%= @qy =(i[1].to_f).round(3) %></td>
+                <% @a << @qy %>
+                     </tr>
+
+                <% end %>
+<tr class="even">
+<td><h4>Total</h4></td>
+<td><%= @tot=(@a.inject{|sum,i|sum+i}).to_f.round(4)%></td>
+<%$qtt = @tot%>
+<% end %>
+

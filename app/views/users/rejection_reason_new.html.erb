@@ -1,0 +1,49 @@
+<div class="bod">
+  <div class="col-md-10 col-sm-8 body-wrap">
+<div class="set">
+<div class="body-container">
+<div class="body-header">
+Rejection Reason
+<div class="fact"><%= form_tag(:action => "rejection_reason_new", :method => 'get', id:"search-order") do %>
+   <p>
+   <span ><%= text_field_tag :search, params[:search],:placeholder=>"Rejection Reasons",:class=>"fa fa-search"%></span>
+   <div class="fact1">
+    <%= submit_tag "Search",:class=>"btn btn-info btn-sm"%>
+   <%= link_to "clear" ,users_rejection_reason_new_path,:class=>"btn btn-info btn-sm"%>
+</div> </p>
+   <% end %></div>
+</div>
+<div class="body-content">
+<div class="table-container">
+<div class="header">
+    List of Rejection Reason
+</div>
+<table class="table">
+<thead>
+<tr>
+<th>Reasons</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<%= form_for([@rejection_reason],validate:true, :url=>{:controller=>"users", :action => "rejection_reason_create"}) do |i|%>
+<tr><td><%=i.text_field :rejection_reason_list,:required => true%></td>
+<td align="center"><%= i.submit "Add",:class=>"btn btn-info"%>
+ <%end%></td></tr>
+
+<% @rejection_reason1.each do |i| %>
+<tr><td><div class="fot"><%= i.rejection_reason_list%></div></td>
+<td><%= link_to image_tag("/assets/trash1.png", height: '20', width: '20',:class=>"img-circle",:title => 'Delete', :rel => 'tooltip',:onclick=>"if (confirm('Are you sure!!!')) commentDelete(1); return false"),{:action => 'rejection_reason_delete', :id => i.id }%></td>
+
+</tr>
+<%end%>
+</tbody>
+</table>
+</div>
+</div>
+<div class="digg_pagination" align="right">
+    <%= will_paginate @rejection_reason1, :container => false %>
+  </div>
+</div>
+</div>
+</div>

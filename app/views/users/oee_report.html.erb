@@ -1,0 +1,150 @@
+<div class = "bod">
+<div class="col-md-10 col-sm-8 body-wrap">
+    <div class="body-container">
+    <div class="body-header">
+      OEE REPORT 
+<div class="add"><%= link_to users_report_oee_path, class: "btn btn-default", :title => 'Back', :rel =>'tooltip' do%>
+<i class="fa fa-arrow-left"></i><%end%></div>
+
+<%if admin?%>
+<div class="down"><%= link_to users_oee_xls_report_path(format: "xls"),:class=>"btn btn-info btn-sm" do%>
+<i class="fa fa-arrow-circle-down">Download</i><%end%></div>
+<%end%>
+</div>
+
+<div class="body-content">
+<div class="table-container">
+<table class="table">
+<thead>
+<tr>
+<th>OEE % </th>
+<th>Machine No</th>
+<th>Shift</th>
+<th>Issue Date</th>
+<th>Product Name</th>
+<th>Colour</th>
+<th>Product Weight</th>
+<th>Mould No</th>
+<th>Raw Material</th>
+<th>No of Cavity</th>
+<th>Expected Cycle Time</th>
+<th>Actual Cycle Time</th>
+<th>Expected Production</th>
+<th>Actual Production</th>
+<th>Rejected Nos</th>
+<th>Rejected Weight</th>
+<th>Total Weight</th>
+<th>No of Mins Idle-Time</th>
+<th>Supervisor</th>
+</tr>
+</thead>
+<ul id = "Labours" >
+
+<% @a = [] %>
+<% @b = [] %>
+<% @c = [] %>
+<% @u = [] %>
+<% @f = [] %>
+
+<% $oee = @l %>
+
+<% if @l.blank? %>
+
+<table>
+<tr><th>No records to display</th></tr></table>
+
+<% else %>
+
+
+<% @m=MachineUsed.pluck(:machine_used_list) %>
+
+<% @mach = [] %>
+<% @idle = [] %>
+<% @coun=@l.count %>
+<% @g=1 %>
+
+
+<% @l.each do |i| %>
+<tbody>
+
+      <%unless i[2]==@chk %><b>
+        <% unless @mach.blank? %>
+          <% @idle = @m - @mach %>
+          <% @idle.empty? ? @idle << "NIL" : @idle.flatten %>
+          <% @idle = @idle.to_sentence %>
+          <tr><th colspan="6">
+           Idle Machines: <%= @idle %>
+          </th></tr>
+          <% @mach.clear %>
+        <%end %>
+        <tr></tr>
+        <tr><th> Date: <%= i[2]%> </th></tr></b>
+      <%end%>
+
+
+<tr class="odd">
+
+<% oe = ((i[12].to_f/i[11].to_f)*100).round(2) %>
+<% if oe < 90 %>
+<td class="co"><%= oe %></td>
+<%else%>
+<td ><%= oe %></td>
+<%end%>
+
+<td><%= i[0] %></td>
+<% @mach << i[0] %>
+<td><%= i[1] %></td>
+<td><%= i[2]%></td>
+<%@chk=i[2]%>
+<td><%= i[3] %></td>
+<td><%= i[4] %></td>
+<td><%= i[5] %></td>
+<td><%= i[6] %></td>
+<td><%= i[7] %></td>
+<td><%= i[8] %></td>
+<td><%= i[9] %></td>
+<td><%= i[10] %></td>
+<td><%= exp = (i[11].to_f).round(2) %></td>
+<% @a << exp %>
+<td><%= act = (i[12].to_f).round(2) %></td>
+<% @b << act %>
+<td><%= i[13] %></td>
+<td><%= (i[14].to_f).round(2) %></td>
+<td><%= (i[15].to_f).round(2) %></td>
+<td><%=@o= (i[16].to_f).round(2) %></td>
+<% @c << @o %>
+<td><%= i[17] %></td>
+</tr>
+
+
+<% if @coun == @g %>
+    <% @idle = @m - @mach %>
+    <% @idle.empty? ? @idle << "NIL" : @idle.flatten %>
+    <tr><th colspan="6">
+           Idle Machines: <%= @idle.to_sentence %>
+          </th></tr>
+    <% end %>
+
+<% @g = @g + 1 %>
+
+
+<%end%>
+
+<tr class="even">
+<td><h4>Total</h4></td>
+<td></td><td></td><td></td><td></td><td></td>
+<td></td><td></td><td></td><td></td><td></td>
+<td></td>
+<td><%= @tot=(@a.inject{|sum,i|sum+i}).to_f.round(4)%></td>
+<td><%= @tot1=@b.inject{|sum,i|sum+i}%></td>
+<td></td><td></td><td></td>
+<td><%= @tot2=@c.inject{|sum,i|sum+i}%></td>
+<% $oe,$oe1,$oe2 = @tot,@tot1,@tot2 %>
+</tr>
+</tbody>
+<% end %>
+</table>
+</div>
+</div>
+</div>
+</div>
